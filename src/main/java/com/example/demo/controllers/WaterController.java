@@ -1,28 +1,43 @@
 package com.example.demo.controllers;
 
+import com.example.demo.configuration.TanksList;
+import com.example.demo.model.Tank;
 import com.example.demo.services.WaterManipulationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Vector;
 
 @RestController
 @RequestMapping("/api")
 public class WaterController {
 
     @Autowired
+    TanksList tanksList;
+
+    @Autowired
     private WaterManipulationService waterManipulationService;
 
-    @GetMapping("/getMaxCapacity")
-    public int QueryMaxCapacity() {
-        return waterManipulationService.queryMaxCapacity();
+    @GetMapping("/getMaxCapacity/{id}")
+    public int QueryMaxCapacity(@PathVariable("id") int id) {
+        return waterManipulationService.queryMaxCapacity(id);
     }
 
-    @GetMapping("/getCurrentCapacity")
-    public int QueryCurrentCapacity() {
-        return waterManipulationService.queryCurrentCapacity();
+    @GetMapping("/getCurrentCapacity/{id}")
+    public int QueryCurrentCapacity(@PathVariable("id") int id) {
+        return waterManipulationService.queryCurrentCapacity(id);
     }
 
-    @GetMapping("/addWater/{water}")
-    public boolean addWater(@PathVariable("water") int water) {
-        return waterManipulationService.addWater(water);
+    @GetMapping("/addWater/{water}/{id}")
+    public boolean addWater(@PathVariable("water") int water, @PathVariable("id") int id) {
+        return waterManipulationService.addWater(water, id);
+    }
+
+    @GetMapping("/check")
+    public Vector<Tank> checkVector() {
+        return tanksList.getTanks();
     }
 }
