@@ -1,6 +1,6 @@
-package com.example.demo.services.management;
+package com.example.demo.services;
 
-public interface WaterManagementService {
+public interface WaterManipulationService {
     int queryMaxCapacity();
     int queryCurrentCapacity();
     boolean addWater(int water);

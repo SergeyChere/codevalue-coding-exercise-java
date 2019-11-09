@@ -8,7 +8,6 @@ import lombok.*;
 @Setter
 @Builder
 public class Tank {
-
+    private int id;
     private int capacity;
-    private long time;
 }
