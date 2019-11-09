@@ -54,8 +54,7 @@ public class WaterManipulationServiceImpl implements WaterManipulationService {
         return true;
     }
 
-    @Override
-    public void fillingWater() {
+    private void fillingWater() {
         tank.setCapacity(maxCapacity);
         tank.setTime(System.currentTimeMillis());
     }
