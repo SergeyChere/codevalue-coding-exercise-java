@@ -7,18 +7,9 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class Tank implements TanksCapacities {
+public class Tank {
 
     private int id;
-    private int capacity;
-
-    @Override
-    public int queryMaxCapacity(int maxCapacity) {
-        return maxCapacity - capacity;
-    }
-
-    @Override
-    public int queryCurrentCapacity() {
-        return capacity;
-    }
+    private int currentCapacity;
+    private int maxCapacity;
 }

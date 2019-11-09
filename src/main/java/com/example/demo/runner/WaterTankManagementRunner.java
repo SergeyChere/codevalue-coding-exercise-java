@@ -1,6 +1,6 @@
 package com.example.demo.runner;
 
-import com.example.demo.configuration.TanksList;
+import com.example.demo.configuration.WaterConfiguration;
 import com.example.demo.model.Tank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,13 +16,13 @@ public class WaterTankManagementRunner implements CommandLineRunner {
     private int tankQuantity;
 
     @Autowired
-    TanksList tanksList;
+    WaterConfiguration waterConfiguration;
 
     @Override
     public void run(String... args) throws Exception {
         for (int i = 0; i < tankQuantity; i++) {
-            tanksList.getTanks().add(new Tank());
-            tanksList.getTanks().get(i).setId(i);
+            waterConfiguration.getTanks().add(new Tank());
+            waterConfiguration.getTanks().get(i).setId(i);
         }
     }
 }

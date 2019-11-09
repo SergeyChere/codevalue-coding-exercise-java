@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.configuration.TanksList;
+import com.example.demo.configuration.WaterConfiguration;
 import com.example.demo.model.Tank;
 import com.example.demo.services.WaterManipulationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.Vector;
 public class WaterController {
 
     @Autowired
-    TanksList tanksList;
+    WaterConfiguration waterConfiguration;
 
     @Autowired
     private WaterManipulationService waterManipulationService;
@@ -38,6 +38,6 @@ public class WaterController {
 
     @GetMapping("/check")
     public Vector<Tank> checkVector() {
-        return tanksList.getTanks();
+        return waterConfiguration.getTanks();
     }
 }

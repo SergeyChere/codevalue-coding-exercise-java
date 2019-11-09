@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Vector;
 
 @Configuration
-public class TanksList {
+public class WaterConfiguration {
 
     private Vector<Tank> tanks = new Vector<>();
 
