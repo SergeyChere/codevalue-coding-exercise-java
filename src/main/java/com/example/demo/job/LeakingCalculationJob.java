@@ -12,7 +12,7 @@ public class LeakingCalculationJob {
     @Autowired
     WaterConfiguration waterConfiguration;
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRateString = "${time.for.leaking}")
     private void calculationLeaking() {
         for (Tank tank : waterConfiguration.getTanks()) {
             if (tank.getCurrentCapacity() != 0) {

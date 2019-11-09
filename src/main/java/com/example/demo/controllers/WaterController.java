@@ -16,9 +16,6 @@ import java.util.Vector;
 public class WaterController {
 
     @Autowired
-    WaterConfiguration waterConfiguration;
-
-    @Autowired
     private WaterManipulationService waterManipulationService;
 
     @GetMapping("/getMaxCapacity/{id}")
@@ -35,6 +32,13 @@ public class WaterController {
     public boolean addWater(@PathVariable("water") int water, @PathVariable("id") int id) {
         return waterManipulationService.addWater(water, id);
     }
+
+    /*
+    Delete before sending
+     */
+
+    @Autowired
+    WaterConfiguration waterConfiguration;
 
     @GetMapping("/check")
     public Vector<Tank> checkVector() {
