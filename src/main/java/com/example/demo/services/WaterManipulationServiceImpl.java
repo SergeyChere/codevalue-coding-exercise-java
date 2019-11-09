@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class WaterManipulationServiceImpl implements WaterManipulationService {
 
-    private Tank tank;
+    private Tank tank = new Tank();
 
     @Value(value = "${max.water.capacity}")
     private int maxCapacity;
@@ -19,6 +19,9 @@ public class WaterManipulationServiceImpl implements WaterManipulationService {
 
     @Override
     public int queryCurrentCapacity() {
+        if (tank.getCapacity() == 0) {
+            return 0;
+        }
         int returnValue;
         int tempValue = (int)((System.currentTimeMillis() - tank.getTime())/1000);
         if (tempValue < 60) {
@@ -39,6 +42,10 @@ public class WaterManipulationServiceImpl implements WaterManipulationService {
 
     @Override
     synchronized public boolean addWater(int water) {
+        if (queryCurrentCapacity() == 0) {
+            fillingWater();
+            return true;
+        }
         if (water > queryMaxCapacity()) {
             return false;
         }
@@ -49,7 +56,6 @@ public class WaterManipulationServiceImpl implements WaterManipulationService {
 
     @Override
     public void fillingWater() {
-        tank = new Tank();
         tank.setCapacity(maxCapacity);
         tank.setTime(System.currentTimeMillis());
     }
