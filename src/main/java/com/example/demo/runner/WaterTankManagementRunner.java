@@ -24,7 +24,7 @@ public class WaterTankManagementRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         for (int i = 0; i < tankQuantity; i++) {
-            waterConfiguration.getTanks().add(new Tank(i, 0, maxCapacity));
+            waterConfiguration.getTanks().add(new Tank(i, 0, maxCapacity, 0));
         }
     }
 }

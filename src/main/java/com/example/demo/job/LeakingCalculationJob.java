@@ -12,14 +12,22 @@ public class LeakingCalculationJob {
     @Autowired
     WaterConfiguration waterConfiguration;
 
-    @Scheduled(fixedRateString = "${time.for.leaking}")
+    @Scheduled(fixedRate = 1000)
     private void calculationLeaking() {
         for (Tank tank : waterConfiguration.getTanks()) {
             if (tank.getCurrentCapacity() != 0) {
-                int currentCapacity = tank.getCurrentCapacity() - 1;
-                int maxCapacity = tank.getMaxCapacity() + 1;
-                tank.setCurrentCapacity(currentCapacity);
-                tank.setMaxCapacity(maxCapacity);
+                int tempValue = (int)((System.currentTimeMillis() - tank.getTime()));
+                if (tempValue >= 60000) {
+                    System.out.println(tank.getId()+": "+(System.currentTimeMillis()-tank.getTime()));
+                    int currentCapacity = tank.getCurrentCapacity() - 1;
+                    int maxCapacity = tank.getAvailableCapacity() + 1;
+                    tank.setCurrentCapacity(currentCapacity);
+                    tank.setAvailableCapacity(maxCapacity);
+                    tank.setTime(System.currentTimeMillis());
+                    if (tank.getCurrentCapacity() == 0) {
+                        tank.setTime(0);
+                    }
+                }
             }
         }
     }

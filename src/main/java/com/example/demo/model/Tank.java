@@ -6,10 +6,10 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
 public class Tank {
 
     private int id;
     private int currentCapacity;
-    private int maxCapacity;
+    private int availableCapacity;
+    private long time;
 }
