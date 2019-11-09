@@ -4,21 +4,25 @@ import com.example.demo.model.Tank;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class WaterManipulationServiceImpl implements WaterManipulationService {
 
-    private Tank tank = new Tank();
+    private List<Tank> tanks = new ArrayList<>();
 
     @Value(value = "${max.water.capacity}")
     private int maxCapacity;
 
     @Override
-    public int queryMaxCapacity() {
-        return tank.getCapacity() - queryCurrentCapacity();
+    public int queryMaxCapacity(int id) {
+        return maxCapacity - queryCurrentCapacity(id);
     }
 
     @Override
-    public int queryCurrentCapacity() {
+    public int queryCurrentCapacity(int id) {
+        Tank tank = tanks.get(id);
         if (tank.getCapacity() == 0) {
             return 0;
         }
@@ -41,21 +45,26 @@ public class WaterManipulationServiceImpl implements WaterManipulationService {
     }
 
     @Override
-    synchronized public boolean addWater(int water) {
-        if (queryCurrentCapacity() == 0) {
-            fillingWater();
+    synchronized public boolean addWater(int water, int id) {
+        if (queryCurrentCapacity(id) == 0 && water <= maxCapacity) {
+            Tank tank = tanks.get(id);
+            tank.setCapacity(water);
+            tank.setTime(System.currentTimeMillis());
             return true;
         }
-        if (water > queryMaxCapacity()) {
+        if (water > queryMaxCapacity(id)) {
             return false;
         }
-        tank.setCapacity((tank.getCapacity() - queryMaxCapacity()) + water);
+        Tank tank = tanks.get(id);
+        tank.setCapacity(tank.getCapacity() + water);
         tank.setTime(System.currentTimeMillis());
         return true;
     }
 
-    private void fillingWater() {
-        tank.setCapacity(maxCapacity);
-        tank.setTime(System.currentTimeMillis());
+    @Override
+    public void manageTankQuantity(int tankQuantity) {
+        for (int i = 0; i < tankQuantity; i++) {
+            tanks.add(new Tank());
+        }
     }
 }
