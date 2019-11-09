@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.services.WaterManipulationService;
+import com.example.demo.services.manipulation.WaterManipulationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

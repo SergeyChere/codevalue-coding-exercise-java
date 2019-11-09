@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.demo.services.manipulation;
 
 import com.example.demo.model.Tank;
 import org.springframework.beans.factory.annotation.Value;

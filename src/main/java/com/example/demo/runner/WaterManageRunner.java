@@ -1,6 +1,6 @@
 package com.example.demo.runner;
 
-import com.example.demo.services.WaterManipulationService;
+import com.example.demo.services.manipulation.WaterManipulationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -12,11 +12,8 @@ public class WaterManageRunner implements CommandLineRunner {
     @Value(value = "${tank.quantity}")
     private int tankQuantity;
 
-    @Value(value = "${max.water.capacity}")
-    private int maxCapacity;
-
     @Autowired
-    WaterManipulationService waterManipulationService;
+    private WaterManipulationService waterManipulationService;
 
     @Override
     public void run(String... args) throws Exception {
